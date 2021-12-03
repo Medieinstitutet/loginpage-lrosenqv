@@ -1,26 +1,23 @@
-// Array username
+// Arrays och logg till localStorage
 let userNames = ["Louise", "Janne", "Victor"];
 
 if(userNames == null) {
     localStorage.setItem("userNames", JSON.stringify(userNames));
 }
 
-// Array password
 let passwords = ["chihuahua", "test", "test2"];
 
 if(passwords == null) {
     localStorage.setItem("passwords", JSON.stringify(passwords));
 }
 
-
 // Hämta alla element
 let userNameInput = document.getElementById("userNameInput")
 let passwordInput = document.getElementById("passwordInput")
 
-//Inloggningsknapp
+//Knappar
 let loginBtn = document.getElementById("loginBtn").addEventListener("click", validateUser)
-
-//Ny användare-knapp 
+ 
 let signUpBtn = document.getElementById("signUpBtn").addEventListener("click", addNewUser)
 
 
