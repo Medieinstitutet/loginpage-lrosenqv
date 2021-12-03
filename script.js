@@ -1,17 +1,36 @@
 // Hämta alla element
 let userNameInput = document.getElementById("userNameInput")
-let passwordInput = document.getElementById("passwordInput")
-let loginBtn = document.getElementById("loginBtn")
 let signUpBtn = document.getElementById("signUpBtn")
+let passwordInput = document.getElementById("passwordInput")
 
-//Array användarnamn
-let userName = ["Louise", "Janne", "Victor"]
-console.log(userName)
+//Inloggningsknapp
+let loginBtn = document.getElementById("loginBtn").addEventListener("click", validateUser)
 
-//Array lösenord
+// Array username
+let userNames = ["Louise", "Janne", "Victor"];
+localStorage.setItem("userNames", JSON.stringify(userNames))
 
+// Array password
+let passwords = ["chihuahua", "test", "test2"];
+localStorage.setItem("passwords", JSON.stringify(passwords))
 
-//Event för inlogg-knapp
+console.log(userNames, passwords)
 
+//Inloggning och validering
+function validateUser() {
+    let userName = document.getElementById("userNameInput").value
+    let password = document.getElementById("passwordInput").value
+    
+    for(let i = 0; i < userNames.length; i++) {
 
-//Event för skapa ny användare-knapp
+        //if(userNames.indexOf(userName) === passwords.indexOf(password)) {
+        if((userName == userNames[i]) &&(password == passwords[i])) {
+        console.log("yaay")
+            break;
+
+        } else {
+            console.log("feel")
+            break;
+        }
+    }
+}
