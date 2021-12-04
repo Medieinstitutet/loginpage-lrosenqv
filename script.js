@@ -1,4 +1,6 @@
 // Arrays och logg till localStorage
+
+
 let userList = [
     {userName : "Louise", password : "chihuahua"},
     {userName : "Janne", password : "test"},
@@ -42,10 +44,6 @@ function validateUser() {
     }
 }
 
-// Hämta alla element
-let userNameInput = document.getElementById("userNameInput")
-let passwordInput = document.getElementById("passwordInput")
-
 //Hämta listor från Local storage
 function getUsersFromLS() {
     let collectedUserList = localStorage.getItem("userList");
@@ -62,22 +60,32 @@ function getUsersFromLS() {
 let signUpBtn = document.getElementById("signUpBtn").addEventListener("click", addNewUser)
 
 function addNewUser() {
-    let newUser = document.getElementById("userNameInput").value;
-    let newPass = document.getElementById("passwordInput").value;
 
-    let userList = getUsersFromLS()
+    let userList = getUsersFromLS();
 
+    let newUserName = document.getElementById("userNameInput").value;
+    let newPassword = document.getElementById("passwordInput").value;
 
-    if(newUser & newPass !="") {
+    let checkUser = userList.find(userList => userList.userName == newUserName);
+    console.log(checkUser)
 
-        userList.push({userName: newUser, password: newPass});
-        console.log("Sparad användare")
+    let createUser = !checkUser && newPassword;
 
-        return localStorage.setItem("userList", JSON.stringify(userList));
+    let message = document.getElementById("message");
 
-        } else {
-                console.log("Vänligen ange användarnamn och lösenord")
-            }
-    localStorage.setItem("userList", JSON.stringify(userList));
+    if(createUser) {
+        console.log("new user!");
+        return localStorage.setItem("userList", JSON.stringify(userList)); 
+
+    } else if (checkUser && newPassword) { 
+
+        console.log("Användare finns redan");
+        return message.innerText = "Användarnamn existerar redan";
+
+    } else {
+        console.log("tomma fält");
+        return message.innerText = "Vänligen kontrollera att du fyllt i alla fält";
+    }
+
+    
 }
-
