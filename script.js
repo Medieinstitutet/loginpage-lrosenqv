@@ -6,7 +6,7 @@ let userList = [
 ]
 
 if(userList == null) {
-localStorage.setItem("userList", JSON.stringify(userList));
+    localStorage.setItem("userList", JSON.stringify(userList));
 }
 
 //Inloggning och validering
@@ -18,30 +18,22 @@ function validateUser() {
 
     let login = userList.find((userList) => {
         return userNameInput == userList.userName && passwordInput == userList.password;
-    });
-
-    console.log(login)
+    })
 
     if(login) {
+            //Loggar in
         console.log("Loggar in")
+
         return login
-    } console.log("Something went wrong")
-}
-
-/*if(userList == null) {
-    localStorage.setItem("userList", JSON.stringify(passwords));
-}  */
-
-console.log(userList)
-
+    } else {
+        //Felmeddelande
+        console.log("Something went wrong")
+    }
+} 
 
 // Hämta alla element
 let userNameInput = document.getElementById("userNameInput")
 let passwordInput = document.getElementById("passwordInput")
-
-//Knappar
-let signUpBtn = document.getElementById("signUpBtn").addEventListener("click", addNewUser)
-
 
 //Hämta listor från Local storage
 function getUsersFromLS() {
@@ -56,25 +48,19 @@ function getUsersFromLS() {
 }
 
 //Lägg till ny användare
+let signUpBtn = document.getElementById("signUpBtn").addEventListener("click", addNewUser)
+
 function addNewUser() {
 
     let newUser = document.getElementById("userNameInput").value
-
-    let userNames = getUsersFromLS() 
-
-    userNames.push(newUser)
-
-    localStorage.setItem("userNames", JSON.stringify(userNames))
-
-
-    //Nytt lösenord   
     let newPass = document.getElementById("passwordInput").value
 
-    let passwords = getPassFromLS() 
-   
-    passwords.push(newPass)
- 
-    localStorage.setItem("passwords", JSON.stringify(passwords))
+    let userList = getUsersFromLS()
+
+    userList.push({
+        userName: newUser,
+        password: newPass
+    });
+
+    localStorage.setItem("userList", JSON.stringify(userList))
 }
-
-
