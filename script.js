@@ -1,64 +1,58 @@
 // Arrays och logg till localStorage
-let userNames = ["Louise", "Janne", "Victor"];
+let userList = [
+    {userName : "Louise", password : "chihuahua"},
+    {userName : "Janne", password : "test"},
+    {userName : "Victor", password : "test2"}
+]
 
-if(userNames == null) {
-    localStorage.setItem("userNames", JSON.stringify(userNames));
+if(userList == null) {
+localStorage.setItem("userList", JSON.stringify(userList));
 }
 
-let passwords = ["chihuahua", "test", "test2"];
+//Inloggning och validering
+let loginBtn = document.getElementById("loginBtn").addEventListener("click", validateUser)
 
-if(passwords == null) {
-    localStorage.setItem("passwords", JSON.stringify(passwords));
+function validateUser() {
+    let userNameInput = document.getElementById("userNameInput").value
+    let passwordInput = document.getElementById("passwordInput").value
+
+    let login = userList.find((userList) => {
+        return userNameInput == userList.userName && passwordInput == userList.password;
+    });
+
+    console.log(login)
+
+    if(login) {
+        console.log("Loggar in")
+        return login
+    } console.log("Something went wrong")
 }
+
+/*if(userList == null) {
+    localStorage.setItem("userList", JSON.stringify(passwords));
+}  */
+
+console.log(userList)
+
 
 // Hämta alla element
 let userNameInput = document.getElementById("userNameInput")
 let passwordInput = document.getElementById("passwordInput")
 
 //Knappar
-let loginBtn = document.getElementById("loginBtn").addEventListener("click", validateUser)
- 
 let signUpBtn = document.getElementById("signUpBtn").addEventListener("click", addNewUser)
 
 
 //Hämta listor från Local storage
 function getUsersFromLS() {
-    let collectedUserList = localStorage.getItem("userNames");
+    let collectedUserList = localStorage.getItem("userList");
 
-    let userNames = []
+    let userList = []
 
     if(collectedUserList) {
-        userNames = JSON.parse(collectedUserList);
-        return userNames 
+        userList = JSON.parse(collectedUserList);
+        return userList
     }
-}
-
-function getPassFromLS() {
-    let collectedPassList = localStorage.getItem("passwords");
-    
-    let passwords = []
-
-    if(collectedPassList) {
-        passwords = JSON.parse(collectedPassList);
-        return passwords 
-    }
-}
-
-//Inloggning och validering
-function validateUser() {
-    let userName = document.getElementById("userNameInput").value
-    let password = document.getElementById("passwordInput").value
-    
-    for(let i = 0; i < userNames.length; i++) { 
-        if((userName == userNames[i]) && (password == passwords[i])) {
-            console.log("yaay"); 
-            break; 
-
-        } else {
-
-            console.log("feel"); 
-            break;}
-        }
 }
 
 //Lägg till ny användare
