@@ -13,8 +13,11 @@ if(userList == null) {
 let loginBtn = document.getElementById("loginBtn").addEventListener("click", validateUser)
 
 function validateUser() {
-    let userNameInput = document.getElementById("userNameInput").value
-    let passwordInput = document.getElementById("passwordInput").value
+
+    let userList = getUsersFromLS()
+
+    let userNameInput = document.getElementById("userNameInput").value;
+    let passwordInput = document.getElementById("passwordInput").value;
 
     let login = userList.find((userList) => {
         return userNameInput == userList.userName && passwordInput == userList.password;
@@ -25,10 +28,12 @@ function validateUser() {
         console.log("Loggar in")
 
         return login
+
     } else {
         //Felmeddelande
-        console.log("Something went wrong")
-    }
+        console.log("Obs! Vänligen ange rätt uppgifter")
+
+    } 
 } 
 
 // Hämta alla element
@@ -51,16 +56,22 @@ function getUsersFromLS() {
 let signUpBtn = document.getElementById("signUpBtn").addEventListener("click", addNewUser)
 
 function addNewUser() {
-
-    let newUser = document.getElementById("userNameInput").value
-    let newPass = document.getElementById("passwordInput").value
+    let newUser = document.getElementById("userNameInput").value;
+    let newPass = document.getElementById("passwordInput").value;
 
     let userList = getUsersFromLS()
 
-    userList.push({
-        userName: newUser,
-        password: newPass
-    });
 
-    localStorage.setItem("userList", JSON.stringify(userList))
+    if(newUser & newPass !="") {
+
+        userList.push({userName: newUser, password: newPass});
+        console.log("Sparad användare")
+
+        return localStorage.setItem("userList", JSON.stringify(userList));
+
+        } else {
+                console.log("jahapp")
+            }
+    localStorage.setItem("userList", JSON.stringify(userList));
 }
+
