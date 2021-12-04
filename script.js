@@ -10,31 +10,37 @@ if(userList == null) {
 }
 
 //Inloggning och validering
-let loginBtn = document.getElementById("loginBtn").addEventListener("click", validateUser)
+let loginBtn = document.getElementById("loginBtn").addEventListener("click", validateUser);
 
 function validateUser() {
-
-    let userList = getUsersFromLS()
+    let userList = getUsersFromLS();
 
     let userNameInput = document.getElementById("userNameInput").value;
     let passwordInput = document.getElementById("passwordInput").value;
 
-    let login = userList.find((userList) => {
-        return userNameInput == userList.userName && passwordInput == userList.password;
-    })
+    let userOk = userList.find(userList => userList.userName == userNameInput);
+    let passwordOk = userList.find(userList => userList.password == passwordInput);
 
-    if(login) {
-            //Loggar in
-        console.log("Loggar in")
+    let validUser = userOk && passwordOk;
 
-        return login
+    let message = document.getElementById("message");
+
+    if(validUser) {
+
+        console.log("success!");
+        return message.innerText = "inloggad";
+
+    } else if (validUser = userOk && !passwordOk) { 
+
+        console.log("fel password");
+        return message.innerText = "fel lösenord";
 
     } else {
-        //Felmeddelande
-        console.log("Obs! Vänligen ange rätt uppgifter")
+        console.log("helt fel hallå");
+        return message.innerText = "Vänligen kontrollera att du har angett rätt inloggnings-uppgifter";
 
-    } 
-} 
+    }
+}
 
 // Hämta alla element
 let userNameInput = document.getElementById("userNameInput")
@@ -70,7 +76,7 @@ function addNewUser() {
         return localStorage.setItem("userList", JSON.stringify(userList));
 
         } else {
-                console.log("jahapp")
+                console.log("Vänligen ange användarnamn och lösenord")
             }
     localStorage.setItem("userList", JSON.stringify(userList));
 }
