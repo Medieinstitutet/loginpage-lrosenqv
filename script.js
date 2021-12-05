@@ -1,91 +1,78 @@
-// Arrays och logg till localStorage
-
+/* Mock-lista för testning !
 
 let userList = [
     {userName : "Louise", password : "chihuahua"},
     {userName : "Janne", password : "test"},
     {userName : "Victor", password : "test2"}
-]
+] 
+localStorage.setItem("userList", JSON.stringify(userList)) */
 
-if(userList == null) {
-    localStorage.setItem("userList", JSON.stringify(userList));
-}
 
-//Inloggning och validering
-let loginBtn = document.getElementById("loginBtn").addEventListener("click", validateUser);
+// Läsa in local storage
+window.addEventListener("load", () => {
+    getStorage()
+})
 
-function validateUser() {
-    let userList = getUsersFromLS();
+function getStorage() {
+    let collectedUsers = localStorage.getItem("userList")
 
-    let userNameInput = document.getElementById("userNameInput").value;
-    let passwordInput = document.getElementById("passwordInput").value;
+    if(collectedUsers) {
 
-    let userOk = userList.find(userList => userList.userName == userNameInput);
-    let passwordOk = userList.find(userList => userList.password == passwordInput);
-
-    let validUser = userOk && passwordOk;
-
-    let message = document.getElementById("message");
-
-    if(validUser) {
-
-        console.log("success!");
-        return message.innerText = "inloggad";
-
-    } else if (validUser = userOk && !passwordOk) { 
-
-        console.log("fel password");
-        return message.innerText = "fel lösenord";
-
-    } else {
-        console.log("helt fel hallå");
-        return message.innerText = "Vänligen kontrollera att du har angett rätt inloggnings-uppgifter";
-
-    }
-}
-
-//Hämta listor från Local storage
-function getUsersFromLS() {
-    let collectedUserList = localStorage.getItem("userList");
-
-    let userList = []
-
-    if(collectedUserList) {
-        userList = JSON.parse(collectedUserList);
         return userList
     }
 }
 
-//Lägg till ny användare
-let signUpBtn = document.getElementById("signUpBtn").addEventListener("click", addNewUser)
+// Inloggning och validering
+let loginBtn = document.getElementById("loginBtn").addEventListener("click", validateUser);
 
-function addNewUser() {
+function validateUser() {
+    let userList = getStorage()
 
-    let userList = getUsersFromLS();
+    let userExist = userList.find(userList => userList.userName == userInput.value);
 
-    let newUserName = document.getElementById("userNameInput").value;
-    let newPassword = document.getElementById("passwordInput").value;
-
-    let checkUser = userList.find(userList => userList.userName == newUserName);
-    console.log(checkUser)
-
-    let createUser = !checkUser && newPassword;
+    let passExist = userList.find(userList => userList.password == passInput.value);
 
     let message = document.getElementById("message");
 
-    if(createUser) {
-        console.log("new user!");
-        return localStorage.setItem("userList", JSON.stringify(userList)); 
+    if(userExist && passExist) {
+        return message.innerText = "inloggad";
 
-    } else if (checkUser && newPassword) { 
-
-        console.log("Användare finns redan");
-        return message.innerText = "Användarnamn existerar redan";
+    } else if (userExist && !passExist) { 
+        return message.innerText = "fel lösenord";
 
     } else {
-        console.log("tomma fält");
-        return message.innerText = "Vänligen kontrollera att du fyllt i alla fält";
+        return message.innerText = "Vänligen kontrollera att du har angett rätt inloggnings-uppgifter";
+    }
+}
+
+// Lägg till ny användare
+let signUpBtn = document.getElementById("signUpBtn").addEventListener("click",addNewUser);
+
+function addNewUser() {
+    let loginMsg = document.getElementById("message");
+
+    let userValue = userInput.value
+    let passValue = passInput.value
+
+    let addUser = {
+        userName: userInput.value,
+        password: passInput.value
     }
 
-    
+    if(userValue && passValue) {
+        let collectedUsers = localStorage.getItem("userList")
+
+        if(collectedUsers) {
+            collectedUsers = JSON.parse(collectedUsers)
+        } else {
+            collectedUsers = []
+        }
+        collectedUsers.push(addUser)
+
+        loginMsg.innerText = "Success! Proceed to login with your user details";
+
+        localStorage.setItem("userList", JSON.stringify(collectedUsers));
+    }
+    return loginMsg.innerText = "Vänligen kontrollera att du fyllt i alla fält";
 }
+

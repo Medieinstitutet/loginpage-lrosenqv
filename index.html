@@ -5,19 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login-page</title>
-    
+    <script src="script.js" defer></script>
 </head>
 <body>
     <nav>
-        <input type="text" id="userNameInput" placeholder="Username"/>
-        <input type="password" id="passwordInput" placeholder="Password"/>
-        <button id="loginBtn">Log in</button>
-        <button id="signUpBtn">Sign up</button>
+        <form id="loginDetails">
+            <input type="text" placeholder="Username" id="userInput"form="loginDetails" required/>
+            <input type="password" placeholder="Password" id="passInput" form="loginDetails" required />
+            <button id="loginBtn" form="loginDetails" type="button">Log in</button>
+            <button id="signUpBtn" form="loginDetails" type="button" >Sign up</button>
+        </form>
         <div id="message"></div>
     </nav>
 
     <main></main>
     <footer></footer>
-    <script src="script.js"></script>
 </body>
 </html>
