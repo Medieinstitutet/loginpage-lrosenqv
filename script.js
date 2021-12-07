@@ -1,6 +1,5 @@
 // Arrays och logg till localStorage
 
-
 let userList = [
     {userName : "Kanye", password : "westtest"},
     {userName : "Janne", password : "test"},
@@ -89,6 +88,4 @@ function addNewUser() {
         console.log("tomma fält");
         return message.innerText = "Vänligen kontrollera att du fyllt i alla fält";
     }
-
-    
 }
