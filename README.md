@@ -1,13 +1,13 @@
 Användare som går att testa:
 
 1
-  userName: Louise
-  password: chihuahua
+  userName: Kanye
+  password: westtest
 
 2
   userName: Janne
   password: test
 
 3
-  userName: Victor
-  password: test2
+  userName: Snoop
+  password: dogg

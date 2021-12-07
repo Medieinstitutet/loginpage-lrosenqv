@@ -2,9 +2,9 @@
 
 
 let userList = [
-    {userName : "Louise", password : "chihuahua"},
+    {userName : "Kanye", password : "westtest"},
     {userName : "Janne", password : "test"},
-    {userName : "Victor", password : "test2"}
+    {userName : "Snoop", password : "dogg"}
 ]
 
 if(userList == null) {
@@ -58,26 +58,29 @@ function getUsersFromLS() {
 
 //Lägg till ny användare
 let signUpBtn = document.getElementById("signUpBtn").addEventListener("click", addNewUser)
+let userNameInput = document.getElementById("userNameInput").value;
+let passwordInput = document.getElementById("passwordInput").value;
+
+let foundUser = userList.find(name => name.userName == userNameInput);
+console.log(foundUser)
+
 
 function addNewUser() {
 
     let userList = getUsersFromLS();
 
-    let newUserName = document.getElementById("userNameInput").value;
-    let newPassword = document.getElementById("passwordInput").value;
+    let newUserName = userNameInput;
+    let newPassword = passwordInput;
 
-    let checkUser = userList.find(userList => userList.userName == newUserName);
-    console.log(checkUser)
-
-    let createUser = !checkUser && newPassword;
+    console.log(newUserName)
 
     let message = document.getElementById("message");
 
-    if(createUser) {
+    if(!foundUser && newPassword) {
         console.log("new user!");
         return localStorage.setItem("userList", JSON.stringify(userList)); 
 
-    } else if (checkUser && newPassword) { 
+    } else if (foundUser && newPassword) { 
 
         console.log("Användare finns redan");
         return message.innerText = "Användarnamn existerar redan";
